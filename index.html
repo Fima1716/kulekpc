@@ -599,7 +599,9 @@
 
         /* Configurator Styles */
         .configurator-wrapper {
+            align-self: centerка;
             background: #f9f9f9;
+            width: 80%;
             padding: 30px;
             border: 2px solid #000000;
             box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
@@ -656,7 +658,7 @@
             display: flex;
             align-items: center;
             background: #ffffff;
-            width: 60%;
+            width: 40%;
             border: 2px solid #000000;
             padding: 10px;
             box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
@@ -685,6 +687,7 @@
 
         .config-item-input {
             width: 100%;
+            height: 20px;
             padding: 6px;
             border: 1px solid #000000;
             font-family: 'DotGothic16', cursive;
@@ -915,6 +918,321 @@
                 gap: 5px;
             }
         }
+        /* ===== Адаптивность ===== */
+
+/* --- Ноутбуки / большие экраны (max-width: 1200px) --- */
+@media (max-width: 1200px) {
+  nav {
+    padding: 40px 30px;
+  }
+
+  .container {
+    padding: 30px 20px;
+  }
+
+  .section-title {
+    font-size: 24px;
+  }
+
+  .config-item {
+    width: 70%;
+  }
+}
+
+/* --- Планшеты горизонтально / узкие ноутбуки (max-width: 992px) --- */
+@media (max-width: 992px) {
+  .banner-content {
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .typing-container {
+    font-size: 24px;
+  }
+
+  .nav-links {
+    gap: 15px;
+  }
+
+  .config-item {
+    width: 80%;
+  }
+
+  .terminal-output {
+    height: 280px;
+  }
+}
+
+/* --- Планшеты вертикально / большие смартфоны (max-width: 768px) --- */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    padding: 30px 20px;
+    gap: 10px;
+  }
+
+  .nav-left {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+
+  .banner {
+    padding: 40px 20px;
+  }
+
+  .typing-container {
+    font-size: 18px;
+  }
+
+  .fan-container {
+    width: 70px;
+    height: 70px;
+  }
+
+  .section-title {
+    font-size: 20px;
+  }
+
+  .terminal-section {
+    padding: 20px;
+  }
+
+  .terminal-output {
+    height: 250px;
+  }
+
+  .config-item {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .config-item-row {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .configurator-wrapper {
+    padding: 20px;
+  }
+
+  .save-config-btn,
+  .close-config-btn {
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  footer {
+    font-size: 12px;
+    padding: 20px 10px;
+  }
+}
+
+/* --- Смартфоны (max-width: 480px) --- */
+@media (max-width: 480px) {
+  body {
+    font-size: 12px;
+  }
+
+  nav {
+    padding: 20px 15px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+  }
+
+  .tooltip .tooltiptext {
+    font-size: 10px;
+    padding: 6px;
+    border-width: 1px;
+    margin-left: -50px;
+  }
+
+  .typing-container {
+    font-size: 16px;
+  }
+
+  .final-text {
+    font-size: 20px;
+  }
+
+  .configurator-wrapper {
+    padding: 15px;
+  }
+
+  .config-item {
+    font-size: 11px;
+  }
+
+  .config-item-input {
+    font-size: 10px;
+    padding: 5px;
+  }
+
+  .total-price {
+    font-size: 24px;
+  }
+
+  .save-config-btn,
+  .close-config-btn {
+    font-size: 10px;
+    padding: 5px 10px;
+  }
+
+  footer {
+    font-size: 10px;
+    padding: 15px;
+  }
+}
+
+/* --- Очень большие экраны (min-width: 1600px) --- */
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1400px;
+  }
+
+  .section-title {
+    font-size: 32px;
+  }
+
+  .typing-container {
+    font-size: 36px;
+  }
+
+  .config-item {
+    width: 50%;
+  }
+
+  .total-price {
+    font-size: 48px;
+  }
+}
+
+/* ======== CATALOGUE CARDS ======== */
+.catalogue-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 32px;
+  padding: 20px;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.catalogue-card {
+  background: linear-gradient(145deg, #1a1b1f, #101114);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.catalogue-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 30px rgba(0, 255, 200, 0.25);
+}
+
+.catalogue-card__image {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+}
+
+.catalogue-card__image img {
+padding-top: 10px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.catalogue-card:hover .catalogue-card__image img {
+  transform: scale(1.05);
+}
+
+.catalogue-card__content {
+  padding: 24px;
+  color: #e8e8e8;
+  text-align: left;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.catalogue-card__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #00ffd0;
+  margin-bottom: 16px;
+  text-shadow: 0 0 10px rgba(0, 255, 208, 0.4);
+}
+
+.catalogue-card__text {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #d5d5d5;
+  margin-bottom: 20px;
+}
+
+.catalogue-card__text strong {
+  color: #fff;
+  font-size: 1.05rem;
+}
+
+.catalogue-card__button {
+  display: inline-block;
+  text-align: center;
+  background: linear-gradient(90deg, #00ffc6, #0099ff);
+  color: #000;
+  font-weight: 600;
+  padding: 12px 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  box-shadow: 0 0 15px rgba(0, 255, 198, 0.3);
+}
+
+.catalogue-card__button:hover {
+  background: linear-gradient(90deg, #00ffd0, #33aaff);
+  box-shadow: 0 0 25px rgba(0, 255, 198, 0.6);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .catalogue-card__image {
+    height: 180px;
+  }
+  .catalogue-card__title {
+    font-size: 1.1rem;
+  }
+  .catalogue-card__text {
+    font-size: 0.9rem;
+  }
+}
+
+
     </style>
 </head>
 <body>
@@ -976,7 +1294,7 @@
                 </div>
                 <div class="terminal-output" id="terminalOutput">
                     <div class="terminal-line"><span class="terminal-prompt">$</span> Добро пожаловать на сайт компьютерной мастерской КУЛЁК!</div>
-                    <div class="terminal-line"><span class="terminal-prompt">$</span> Введите команду для получения информации</div>
+                    <div class="terminal-line"><span class="terminal-prompt">$</span> Введите команду или нажмите на кнопки ниже для получения информации</div>
                     <div class="terminal-line" style="color: #00ff00; margin-top: 15px;"><strong>Доступные команды:</strong></div>
                 </div>
                 <div class="terminal-input-line">
@@ -991,7 +1309,105 @@
             </div>
         </section>
 
-        <!-- Services Section -->
+   <!-- Gaming PC Catalogue Section -->
+<section class="section" id="services">
+  <h2 class="section-title">ГОТОВЫЕ СБОРКИ</h2>
+
+  <div class="catalogue-grid">
+
+    <!-- Card 1 -->
+    <div class="catalogue-card">
+      <div class="catalogue-card__image">
+        <img src="images/pc-top.jpg" alt="Игровая сборка — топ за свои деньги">
+      </div>
+      <div class="catalogue-card__content">
+        <h3 class="catalogue-card__title">kulek INFINITY</h3>
+        <div class="catalogue-card__text">
+          ⁕ Процессор: AMD Ryzen 5 7500F<br>
+          ⁕ Материнская плата: MAXSUN MS-Terminator B650M WIFI ICE<br>
+          ⁕ Оперативная память: Team Group T-Force Delta RGB 32GB<br>
+          ⁕ Видеокарта: GIGABYTE GeForce RTX 5060 AERO OC 8G<br>
+          ⁕ Система охлаждения: DeepCool LD240 WH<br>
+          ⁕ SSD-диск: A-Data Legend 960 Max 1ТБ<br>
+          ⁕ Блок питания: 1STPLAYER NGDP 750W 80+ Gold ATX3.1<br>
+          ⁕ Корпус: Megaview MV5T<br><br>
+          ⁕ ОС: Windows 11 Pro + Office лицензии<br><br>
+
+          💰 <strong>Цена: 96 490₽</strong>
+        </div>
+        <a
+          class="catalogue-card__button"
+          href="https://t.me/Fima2412?text=Здравствуйте!%20Хочу%20заказать%20у%20вас%20игровую%20сборку%20(kulek%20INFINITY)."
+          target="_blank"
+        >
+          💬 Заказать сборку
+        </a>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="catalogue-card">
+      <div class="catalogue-card__image">
+        <img src="images/pc-entry.jpg" alt="Игровая сборка №1 — старт">
+      </div>
+      <div class="catalogue-card__content">
+        <h3 class="catalogue-card__title">kulek START</h3>
+        <div class="catalogue-card__text">
+          ⁕ Процессор: Intel Core i5-12400F<br>
+          ⁕ Материнская плата:  МSI РRО Н610М-G<br>
+          ⁕ Оперативная память: Patriot Signature Premium DDR4 2x8 ГБ<br>
+          ⁕ Видеокарта: RТХ 5060 8Gb Раlit Duаl<br>
+          ⁕ Охлаждение: ID-COOLING SE-214-XT Basic<br>
+          ⁕ SSD-диск: Netac 1 ТБ<br>
+          ⁕ Блок питания: Deepcool GAMERSTORM PF600X<br>
+          ⁕ Корпус: 1stРlаyеr Мiku Мi2<br><br>
+          ⁕ ОС: Windows 11 Pro + Office лицензии<br><br>
+
+          💰 <strong>Цена: 61 990₽</strong>
+        </div>
+        <a
+          class="catalogue-card__button"
+          href="https://t.me/fima2412?text=Здравствуйте!%20Хочу%20заказать%20у%20вас%20сборку%20🎯%20(Игровой%20старт)."
+          target="_blank"
+        >
+          💬 Заказать сборку
+        </a>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+<div class="catalogue-card">
+  <div class="catalogue-card__image">
+    <img src="images/pc-galaxy.jpg" alt="Игровая сборка kulek GALAXY">
+  </div>
+  <div class="catalogue-card__content">
+    <h3 class="catalogue-card__title">kulek GALAXY</h3>
+    <div class="catalogue-card__text">
+      ⁕ Процессор: АМ5 Ryzen 7 7700<br>
+      ⁕ Видеокарта: RTX 5070 Ti 16Gb Palit GamingPro-S<br>
+      ⁕ Оперативная память: Adata XPG Lancer Blade 32Gb 6000Mhz<br>
+      ⁕ Материнская плата: MSI PRO B650M-P<br>
+      ⁕ SSD M.2: Adata Legend 900 1Tb (7000Mb/4700Mb)<br>
+      ⁕ Блок питания: 1stPlayer NGDP Gold 750W ATX3.1<br>
+      ⁕ Корпус: белый Hastra Q500M<br><br><br><br>
+      ⁕ ОС: Windows 11 Pro + Office лицензии<br><br>
+      💰 <strong>Цена: 149 990₽</strong>
+    </div>
+    <a
+      class="catalogue-card__button"
+      href="https://t.me/fima2412?text=Здравствуйте!%20Хочу%20заказать%20у%20вас%20сборку%20💫%20kulek%20GALAXY."
+      target="_blank"
+    >
+      💬 Заказать сборку
+    </a>
+  </div>
+</div>
+
+
+  </div>
+</section>
+
+
         <section class="section" id="services">
             <h2 class="section-title">НАШИ УСЛУГИ</h2>
             <div class="content-grid">
@@ -1379,19 +1795,19 @@
                 action: () => openConfigurator()
             },
             'services': {
-                response: 'Переходу к услугам...',
+                response: 'Перехожу к услугам...',
                 action: () => {
                     document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
                 }
             },
             'about': {
-                response: 'Переходу к информации о компании...',
+                response: 'Перехожу к информации о компании...',
                 action: () => {
                     document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
                 }
             },
             'contacts': {
-                response: 'Переходу к контактам...',
+                response: 'Перехожу к контактам...',
                 action: () => {
                     document.getElementById('contacts').scrollIntoView({ behavior: 'smooth' });
                 }
@@ -1404,6 +1820,13 @@
                 response: null,
                 action: () => {
                     terminalOutput.innerHTML = '<div class="terminal-line" style="color: #00ff00;"><span class="terminal-prompt">$</span> Терминал очищен</div>';
+                    displayHelp();
+                }
+            },
+             'help': {
+                response: null,
+                action: () => {
+                    terminalOutput.innerHTML = '<div class="terminal-line" style="color: #00ff00;"><span class="terminal-prompt">$</span> Доступные команды</div>';
                     displayHelp();
                 }
             }
