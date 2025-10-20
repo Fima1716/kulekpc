@@ -1,0 +1,1733 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>КУЛЁК • компьютерная мастерская</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DotGothic16', cursive;
+            background: #ffffff;
+            color: #000000;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            background: #000000;
+            padding: 60px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .monster-header {
+            width: 40px;
+            height: 40px;
+            position: relative;
+            animation: alienBreathe 2s ease-in-out infinite;
+        }
+
+        /* 8-bit White Monster */
+        .alien-pixel {
+            position: absolute;
+            background: #ffffff;
+            border: 1px solid #ffffff;
+        }
+
+        /* Head */
+        .alien-pixel.head-1 { width: 8px; height: 8px; top: 0px; left: 16px; }
+        .alien-pixel.head-2 { width: 8px; height: 8px; top: 0px; left: 24px; }
+        .alien-pixel.head-3 { width: 8px; height: 8px; top: 8px; left: 8px; }
+        .alien-pixel.head-4 { width: 8px; height: 8px; top: 8px; left: 16px; }
+        .alien-pixel.head-5 { width: 8px; height: 8px; top: 8px; left: 24px; }
+        .alien-pixel.head-6 { width: 8px; height: 8px; top: 8px; left: 32px; }
+        .alien-pixel.head-7 { width: 8px; height: 8px; top: 16px; left: 8px; }
+        .alien-pixel.head-8 { width: 8px; height: 8px; top: 16px; left: 32px; }
+        .alien-pixel.head-9 { width: 8px; height: 8px; top: 24px; left: 16px; }
+        .alien-pixel.head-10 { width: 8px; height: 8px; top: 24px; left: 24px; }
+
+        /* Eyes */
+        .alien-pixel.eye { background: #000000; }
+        .alien-pixel.eye-1 { width: 4px; height: 4px; top: 10px; left: 12px; }
+        .alien-pixel.eye-2 { width: 4px; height: 4px; top: 10px; left: 28px; }
+
+        /* Body */
+        .alien-pixel.body-1 { width: 8px; height: 8px; top: 24px; left: 8px; }
+        .alien-pixel.body-2 { width: 8px; height: 8px; top: 24px; left: 32px; }
+
+        @keyframes alienBreathe {
+            0%, 100% { transform: scale(1) translateY(0); }
+            50% { transform: scale(1.1) translateY(-2px); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #cccccc;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ffffff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: auto;
+            background-color: #000000;
+            color: #ffffff;
+            text-align: center;
+            border-radius: 0;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 12px;
+            border: 2px solid #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #000000 transparent transparent transparent;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Floating Back to Terminal Button */
+        .floating-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #000000;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: 2px solid #ffffff;
+            font-family: 'DotGothic16', cursive;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 99;
+            display: none;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .floating-btn:hover {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        /* Banner Section */
+        .banner {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.1);
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(0, 0, 0, 0.03) 0px,
+                    rgba(0, 0, 0, 0.03) 1px,
+                    transparent 1px,
+                    transparent 2px
+                );
+            pointer-events: none;
+        }
+
+        .banner-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .typing-container {
+            font-size: 32px;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            flex: 1;
+        }
+
+        .typing-text {
+            display: inline-block;
+            white-space: nowrap;
+            letter-spacing: 2px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 4px;
+            height: 40px;
+            background: #000000;
+            margin-left: 5px;
+            animation: blink 0.7s infinite;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+
+        .fan-container {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .fan {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .fan-blade {
+            position: absolute;
+            width: 14px;
+            height: 40px;
+            background: #000000;
+            left: 50%;
+            top: 50%;
+            transform-origin: center;
+            border-radius: 2px;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .fan-blade:nth-child(1) {
+            transform: translate(-50%, -50%) rotate(0deg) translateY(-28px);
+        }
+
+        .fan-blade:nth-child(2) {
+            transform: translate(-50%, -50%) rotate(72deg) translateY(-28px);
+        }
+
+        .fan-blade:nth-child(3) {
+            transform: translate(-50%, -50%) rotate(144deg) translateY(-28px);
+        }
+
+        .fan-blade:nth-child(4) {
+            transform: translate(-50%, -50%) rotate(216deg) translateY(-28px);
+        }
+
+        .fan-blade:nth-child(5) {
+            transform: translate(-50%, -50%) rotate(288deg) translateY(-28px);
+        }
+
+        .fan-center {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: #000000;
+            border-radius: 50%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.4), inset 0 0 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .final-text {
+            font-size: 36px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            margin-top: 20px;
+            opacity: 0;
+            animation: pixelAppear 0.8s ease-out forwards;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 3;
+        }
+
+        @keyframes pixelAppear {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+                filter: blur(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+                filter: blur(0);
+            }
+        }
+
+        .pixel-particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .pixel-block {
+            width: 8px;
+            height: 8px;
+            background: #000000;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            border-bottom: 3px solid #000000;
+            padding-bottom: 15px;
+        }
+
+        /* Terminal Section */
+        .terminal-section {
+            background: #1a1a1a;
+            padding: 30px;
+            border-radius: 0;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(0, 0, 0, 0.2);
+            font-family: 'DotGothic16', monospace;
+            color: #ffffff;
+            border: 3px solid #000000;
+        }
+
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #333333;
+        }
+
+        .terminal-title {
+            font-size: 16px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+        }
+
+        .terminal-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .terminal-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid #666666;
+        }
+
+        .terminal-btn.close { background: #ff5f56; }
+        .terminal-btn.minimize { background: #ffbd2e; }
+        .terminal-btn.maximize { background: #27c93f; }
+
+        .terminal-output {
+            height: 350px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #0a0a0a;
+            border: 1px solid #333333;
+        }
+
+        .terminal-line {
+            margin: 8px 0;
+            letter-spacing: 1px;
+            line-height: 1.8;
+        }
+
+        .terminal-prompt {
+            color: #00ff00;
+            font-weight: bold;
+        }
+
+        .terminal-input-line {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 15px;
+            position: relative;
+        }
+
+        .terminal-prompt-active {
+            color: #00ff00;
+            font-weight: bold;
+        }
+
+        .input-wrapper {
+            position: relative;
+            flex: 1;
+        }
+
+        .terminal-input {
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-family: 'DotGothic16', monospace;
+            font-size: 14px;
+            outline: none;
+            width: 100%;
+            letter-spacing: 1px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 2;
+            caret-color: #00ff00;
+        }
+
+        .terminal-input::placeholder {
+            color: #666666;
+        }
+
+        .suggestion {
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #666666;
+            white-space: pre;
+            font-family: 'DotGothic16', monospace;
+            font-size: 14px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .tab-hint {
+            border: 1px solid #666666;
+            padding: 2px 5px;
+            font-size: 10px;
+            color: #aaaaaa;
+            display: none;
+            white-space: nowrap;
+            position: absolute;
+            top: 0;
+            z-index: 3;
+        }
+
+        .terminal-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 16px;
+            background: #00ff00;
+            animation: blink 0.7s infinite;
+            margin-left: 3px;
+        }
+
+        .terminal-output::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .terminal-output::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        .terminal-output::-webkit-scrollbar-thumb {
+            background: #444444;
+            border-radius: 4px;
+        }
+
+        .terminal-output::-webkit-scrollbar-thumb:hover {
+            background: #666666;
+        }
+
+        /* Help Grid */
+        .help-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .help-cell {
+            background: #0a0a0a;
+            border: 1px solid #00ff00;
+            padding: 8px;
+            font-size: 11px;
+            color: #00ff00;
+        }
+
+        .help-command {
+            font-weight: bold;
+            margin-bottom: 3px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .help-command:hover {
+            color: #ffffff;
+        }
+
+        .help-description {
+            font-size: 10px;
+            color: #00aa00;
+        }
+
+        /* Pixel Animation Overlay */
+        .pixel-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 150;
+            pointer-events: none;
+            display: none;
+        }
+
+        .pixel-square {
+            position: absolute;
+            background: #000000;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Configurator Styles */
+        .configurator-wrapper {
+            background: #f9f9f9;
+            padding: 30px;
+            border: 2px solid #000000;
+            box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+            display: none; /* Hidden by default */
+            min-height: calc(100vh - 160px); /* Fit to screen height minus nav */
+            overflow: hidden;
+        }
+
+        .configurator-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #000000;
+        }
+
+        .configurator-title {
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .config-header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .save-config-btn, .close-config-btn {
+            background: #000000;
+            color: #ffffff;
+            padding: 8px 16px;
+            border: 2px solid #000000;
+            font-family: 'DotGothic16', cursive;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .save-config-btn:hover, .close-config-btn:hover {
+            background: #ffffff;
+            color: #000000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .configurator-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .config-item {
+            display: flex;
+            align-items: center;
+            background: #ffffff;
+            width: 60%;
+            border: 2px solid #000000;
+            padding: 10px;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s;
+        }
+
+        .config-item:hover {
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .config-item-icon {
+            font-size: 24px;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+
+        .config-item-content {
+            flex: 1;
+        }
+
+        .config-item-title {
+            font-weight: bold;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .config-item-input {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #000000;
+            font-family: 'DotGothic16', cursive;
+            font-size: 11px;
+            margin-bottom: 6px;
+            background: #ffffff;
+        }
+
+        .config-item-input::placeholder {
+            color: #999999;
+        }
+
+        .config-item-row {
+            display: flex;
+            gap: 6px;
+        }
+
+        .price-input {
+            flex: 1;
+        }
+
+        .qty-input {
+            width: 50px;
+        }
+
+        .configurator-total {
+            background: #000000;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+            border: 2px solid #000000;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .total-label {
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .total-price {
+            font-size: 36px;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+
+        .saved-configs {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #000000;
+            overflow-y: auto;
+            max-height: 200px; /* Limit height to fit screen */
+        }
+
+        .saved-config-item {
+            background: #f0f0f0;
+            padding: 15px;
+            border: 2px solid #000000;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .saved-config-info {
+            flex: 1;
+        }
+
+        .saved-config-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .saved-config-price {
+            font-size: 14px;
+            color: #555555;
+        }
+
+        .saved-config-time {
+            font-size: 11px;
+            color: #888888;
+            margin-top: 3px;
+        }
+
+        .saved-config-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .config-btn {
+            padding: 6px 12px;
+            border: 1px solid #000000;
+            font-family: 'DotGothic16', cursive;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .config-btn.load {
+            background: #000000;
+            color: #ffffff;
+        }
+
+        .config-btn.load:hover {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .config-btn.delete {
+            background: #ff6b6b;
+            color: #ffffff;
+            border-color: #ff6b6b;
+        }
+
+        .config-btn.delete:hover {
+            background: #ffffff;
+            color: #ff6b6b;
+        }
+
+        /* Content Sections */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: #f9f9f9;
+            padding: 25px;
+            border: 2px solid #000000;
+            box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .card-text {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333333;
+        }
+
+        /* Footer */
+        footer {
+            background: #000000;
+            color: #ffffff;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1px;
+        }
+
+        footer a {
+            color: #cccccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #ffffff;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-left {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+
+            .banner-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .typing-container {
+                font-size: 20px;
+            }
+
+            .fan-container {
+                width: 80px;
+                height: 80px;
+            }
+
+            .final-text {
+                font-size: 24px;
+            }
+
+            .section-title {
+                font-size: 22px;
+            }
+
+            .terminal-output {
+                height: 250px;
+            }
+
+            .help-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .configurator-list {
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-left">
+            <div class="logo">
+                <div class="monster-header">
+                    <div class="alien-pixel head-1"></div>
+                    <div class="alien-pixel head-2"></div>
+                    <div class="alien-pixel head-3"></div>
+                    <div class="alien-pixel head-4"></div>
+                    <div class="alien-pixel head-5"></div>
+                    <div class="alien-pixel head-6"></div>
+                    <div class="alien-pixel head-7"></div>
+                    <div class="alien-pixel head-8"></div>
+                    <div class="alien-pixel head-9"></div>
+                    <div class="alien-pixel head-10"></div>
+                    <div class="alien-pixel eye eye-1"></div>
+                    <div class="alien-pixel eye eye-2"></div>
+                    <div class="alien-pixel body-1"></div>
+                    <div class="alien-pixel body-2"></div>
+                </div>
+                КУЛЁК
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" onclick="openConfigurator()" class="tooltip">КОНФИГУРАТОР<span class="tooltiptext">Собери свой ПК</span></a></li>
+            <li><a href="#services" class="tooltip">УСЛУГИ<span class="tooltiptext">Наши услуги</span></a></li>
+            <li><a href="#about" class="tooltip">О НАС<span class="tooltiptext">О компании</span></a></li>
+            <li><a href="#contacts" class="tooltip">КОНТАКТЫ<span class="tooltiptext">Связь с нами</span></a></li>
+        </ul>
+    </nav>
+
+    <!-- Banner with Typing Animation -->
+    <section class="banner">
+        <div class="banner-content">
+            <div class="typing-container">
+                <div class="typing-text" id="typingText"></div>
+                <div class="cursor"></div>
+            </div>
+        </div>
+        <div class="final-text hidden" id="finalText">КУЛЁК • компьютерная мастерская</div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container" id="mainContent">
+        <!-- Terminal Section (After Banner) -->
+        <section class="section" id="terminal">
+            <h2 class="section-title">ИНТЕРАКТИВНЫЙ ТЕРМИНАЛ</h2>
+            <div class="terminal-section">
+                <div class="terminal-header">
+                    <div class="terminal-title">КУЛЁК SYSTEM v1.0</div>
+                    <div class="terminal-buttons">
+                        <div class="terminal-btn close"></div>
+                        <div class="terminal-btn minimize"></div>
+                        <div class="terminal-btn maximize"></div>
+                    </div>
+                </div>
+                <div class="terminal-output" id="terminalOutput">
+                    <div class="terminal-line"><span class="terminal-prompt">$</span> Добро пожаловать на сайт компьютерной мастерской КУЛЁК!</div>
+                    <div class="terminal-line"><span class="terminal-prompt">$</span> Введите команду для получения информации</div>
+                    <div class="terminal-line" style="color: #00ff00; margin-top: 15px;"><strong>Доступные команды:</strong></div>
+                </div>
+                <div class="terminal-input-line">
+                    <span class="terminal-prompt-active">$</span>
+                    <div class="input-wrapper">
+                        <input type="text" class="terminal-input" id="terminalInput" placeholder="Введите команду...">
+                        <div class="suggestion" id="suggestion"></div>
+                        <span id="tabHint" class="tab-hint">нажмите tab</span>
+                    </div>
+                    <span class="terminal-cursor"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="section" id="services">
+            <h2 class="section-title">НАШИ УСЛУГИ</h2>
+            <div class="content-grid">
+                <div class="card tooltip">
+                    <div class="card-title">💰 ВЫГОДНЫЕ ЦЕНЫ</div>
+                    <div class="card-text">Собираем ПК без лишних переплат. Для постоянных клиентов — скидка 12% на все комплектующие!</div>
+                    <span class="tooltiptext">Честные цены без скрытых комиссий</span>
+                </div>
+                <div class="card tooltip">
+                    <div class="card-title">🎮 ИГРОВЫЕ СБОРКИ</div>
+                    <div class="card-text">От офисного ПК до топового геймерского монстра. Под любой бюджет и стиль игры.</div>
+                    <span class="tooltiptext">Сборки для любых игр и задач</span>
+                </div>
+                <div class="card tooltip">
+                    <div class="card-title">👨‍💼 КОНСУЛЬТАЦИИ</div>
+                    <div class="card-text">Помогаем подобрать оптимальные комплектующие и собрать ПК под ваши задачи бесплатно.</div>
+                    <span class="tooltiptext">Бесплатная консультация от экспертов</span>
+                </div>
+                <div class="card tooltip">
+                    <div class="card-title">✅ ГАРАНТИЯ</div>
+                    <div class="card-text">Гарантия + чек на всё. Мы отвечаем за качество сборки и комплектующих.</div>
+                    <span class="tooltiptext">Полная гарантия на все работы</span>
+                </div>
+                <div class="card tooltip">
+                    <div class="card-title">🚚 ДОСТАВКА</div>
+                    <div class="card-text">Доставка по всей России. Быстро, безопасно и с заботой о вашем ПК.</div>
+                    <span class="tooltiptext">Доставка в любой регион России</span>
+                </div>
+                <div class="card tooltip">
+                    <div class="card-title">🔧 РЕМОНТ</div>
+                    <div class="card-text">Профессиональный ремонт и диагностика компьютеров. Любая проблема — решение есть!</div>
+                    <span class="tooltiptext">Быстрый и качественный ремонт</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="section" id="about">
+            <h2 class="section-title">О НАС</h2>
+            <div class="card">
+                <div class="card-title">КУЛЁК • КОМПЬЮТЕРНАЯ МАСТЕРСКАЯ</div>
+                <div class="card-text">
+                    Мы профессионально собираем, ремонтируем и улучшаем ПК. Наша цель — подобрать идеальную конфигурацию для работы, учёбы или игр. Честно, красиво и быстро! С нами вы получите качественный сервис, честные цены и профессиональную консультацию.
+                </div>
+            </div>
+        </section>
+
+        <!-- Contacts Section -->
+        <section class="section" id="contacts">
+            <h2 class="section-title">КОНТАКТЫ</h2>
+            <div class="content-grid">
+                <div class="card tooltip">
+                    <div class="card-title">📱 ТЕЛЕГРАМ</div>
+                    <div class="card-text">
+                        <a href="https://t.me/kulek_pc" target="_blank" style="color: #0088cc;">@kulek_pc</a>
+                    </div>
+                    <span class="tooltiptext">Напишите нам в Телеграм</span>
+                </div>
+                <div class="card tooltip">
+                    <div class="card-title">🛒 АВИТО</div>
+                    <div class="card-text">
+                        <a href="https://www.avito.ru" target="_blank" style="color: #0066cc;">Наш магазин на Авито</a>
+                    </div>
+                    <span class="tooltiptext">Смотрите наши объявления</span>
+                </div>
+                <div class="card tooltip">
+                    <div class="card-title">📧 EMAIL</div>
+                    <div class="card-text">
+                        <a href="mailto:info@kulek.ru" style="color: #0066cc;">info@kulek.ru</a>
+                    </div>
+                    <span class="tooltiptext">Отправьте письмо на почту</span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Configurator Section -->
+    <section class="section configurator-wrapper" id="configurator">
+        <div class="configurator-header">
+            <div class="configurator-title">ПЕРСОНАЛЬНЫЙ КОМПЬЮТЕР</div>
+            <div class="config-header-buttons">
+                <button class="save-config-btn" onclick="saveConfiguration()">СОХРАНИТЬ</button>
+                <button class="close-config-btn" onclick="closeConfigurator()">ЗАКРЫТЬ</button>
+            </div>
+        </div>
+
+        <div class="configurator-list">
+            <!-- CPU -->
+            <div class="config-item">
+                <div class="config-item-icon">🖥️</div>
+                <div class="config-item-content">
+                    <div class="config-item-title">Введите название процессора</div>
+                    <input type="text" class="config-item-input" id="cpu-name" placeholder="Вставьте ссылку на товар">
+                    <div class="config-item-row">
+                        <input type="number" class="config-item-input price-input" id="cpu-price" placeholder="Цена за 1 шт. P" min="0">
+                        <input type="number" class="config-item-input qty-input" id="cpu-qty" value="1" min="1">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Motherboard -->
+            <div class="config-item">
+                <div class="config-item-icon">⚙️</div>
+                <div class="config-item-content">
+                    <div class="config-item-title">Введите название материнской платы</div>
+                    <input type="text" class="config-item-input" id="mobo-name" placeholder="Вставьте ссылку на товар">
+                    <div class="config-item-row">
+                        <input type="number" class="config-item-input price-input" id="mobo-price" placeholder="Цена за 1 шт. P" min="0">
+                        <input type="number" class="config-item-input qty-input" id="mobo-qty" value="1" min="1">
+                    </div>
+                </div>
+            </div>
+
+            <!-- RAM -->
+            <div class="config-item">
+                <div class="config-item-icon">💾</div>
+                <div class="config-item-content">
+                    <div class="config-item-title">Введите название оперативной памяти</div>
+                    <input type="text" class="config-item-input" id="ram-name" placeholder="Вставьте ссылку на товар">
+                    <div class="config-item-row">
+                        <input type="number" class="config-item-input price-input" id="ram-price" placeholder="Цена за 1 шт. P" min="0">
+                        <input type="number" class="config-item-input qty-input" id="ram-qty" value="1" min="1">
+                    </div>
+                </div>
+            </div>
+
+            <!-- GPU -->
+            <div class="config-item">
+                <div class="config-item-icon">🎮</div>
+                <div class="config-item-content">
+                    <div class="config-item-title">Введите название видеокарты</div>
+                    <input type="text" class="config-item-input" id="gpu-name" placeholder="Вставьте ссылку на товар">
+                    <div class="config-item-row">
+                        <input type="number" class="config-item-input price-input" id="gpu-price" placeholder="Цена за 1 шт. P" min="0">
+                        <input type="number" class="config-item-input qty-input" id="gpu-qty" value="1" min="1">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cooling -->
+            <div class="config-item">
+                <div class="config-item-icon">❄️</div>
+                <div class="config-item-content">
+                    <div class="config-item-title">Введите название системы охлаждения</div>
+                    <input type="text" class="config-item-input" id="cool-name" placeholder="Вставьте ссылку на товар">
+                    <div class="config-item-row">
+                        <input type="number" class="config-item-input price-input" id="cool-price" placeholder="Цена за 1 шт. P" min="0">
+                        <input type="number" class="config-item-input qty-input" id="cool-qty" value="1" min="1">
+                    </div>
+                </div>
+            </div>
+
+            <!-- SSD -->
+            <div class="config-item">
+                <div class="config-item-icon">💿</div>
+                <div class="config-item-content">
+                    <div class="config-item-title">Введите название SSD диска</div>
+                    <input type="text" class="config-item-input" id="ssd-name" placeholder="Вставьте ссылку на товар">
+                    <div class="config-item-row">
+                        <input type="number" class="config-item-input price-input" id="ssd-price" placeholder="Цена за 1 шт. P" min="0">
+                        <input type="number" class="config-item-input qty-input" id="ssd-qty" value="1" min="1">
+                    </div>
+                </div>
+            </div>
+
+            <!-- PSU -->
+            <div class="config-item">
+                <div class="config-item-icon">⚡</div>
+                <div class="config-item-content">
+                    <div class="config-item-title">Введите название блока питания</div>
+                    <input type="text" class="config-item-input" id="psu-name" placeholder="Вставьте ссылку на товар">
+                    <div class="config-item-row">
+                        <input type="number" class="config-item-input price-input" id="psu-price" placeholder="Цена за 1 шт. P" min="0">
+                        <input type="number" class="config-item-input qty-input" id="psu-qty" value="1" min="1">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Case -->
+            <div class="config-item">
+                <div class="config-item-icon">📦</div>
+                <div class="config-item-content">
+                    <div class="config-item-title">Введите название корпуса</div>
+                    <input type="text" class="config-item-input" id="case-name" placeholder="Вставьте ссылку на товар">
+                    <div class="config-item-row">
+                        <input type="number" class="config-item-input price-input" id="case-price" placeholder="Цена за 1 шт. P" min="0">
+                        <input type="number" class="config-item-input qty-input" id="case-qty" value="1" min="1">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fans -->
+            <div class="config-item">
+                <div class="config-item-icon">🌀</div>
+                <div class="config-item-content">
+                    <div class="config-item-title">Введите название вентиляторов</div>
+                    <input type="text" class="config-item-input" id="fans-name" placeholder="Вставьте ссылку на товар">
+                    <div class="config-item-row">
+                        <input type="number" class="config-item-input price-input" id="fans-price" placeholder="Цена за 1 шт. P" min="0">
+                        <input type="number" class="config-item-input qty-input" id="fans-qty" value="1" min="1">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="configurator-total">
+            <div class="total-label">ИТОГО:</div>
+            <div class="total-price" id="totalPrice">0 P</div>
+        </div>
+
+        <!-- Saved Configurations -->
+        <div class="saved-configs" id="savedConfigsContainer" style="display: none;">
+            <h3 style="margin-bottom: 15px; font-size: 16px; letter-spacing: 1px;">СОХРАНЁННЫЕ СБОРКИ:</h3>
+            <div id="savedConfigsList"></div>
+        </div>
+    </section>
+
+    <!-- Pixel Overlay for Animation -->
+    <div class="pixel-overlay" id="pixelOverlay"></div>
+
+    <!-- Floating Back to Terminal -->
+    <button class="floating-btn tooltip" id="floatingBackBtn" onclick="scrollToTerminal()">↑ К ТЕРМИНАЛУ<span class="tooltiptext">Вернуться к терминалу</span></button>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 КУЛЁК • компьютерная мастерская | Все права защищены</p>
+        <p style="margin-top: 10px; font-size: 12px;">Разработано с ❤️ для геймеров и энтузиастов ПК</p>
+    </footer>
+
+    <script>
+        // Typing Animation
+        const texts = [
+            "Скидка 12% в магазинах Ситилинк, онлайнтрейд, DNS.",
+            "Игровые и офисные сборки под любой бюджет",
+            "Только новые комплектующие",
+            "Официальная гарантия от магазинов",
+            "Доставка по всей России"
+        ];
+
+        const typingText = document.getElementById('typingText');
+        const finalText = document.getElementById('finalText');
+        const cursor = document.querySelector('.cursor');
+        
+        let currentTextIndex = 0;
+        let currentCharIndex = 0;
+        let isTyping = true;
+
+        const typingSpeed = 80;
+        const erasingSpeed = 40;
+        const delayBetweenTexts = 2000;
+        const delayBeforeFinal = 1000;
+
+        function typeText() {
+            const text = texts[currentTextIndex];
+            
+            if (isTyping) {
+                if (currentCharIndex < text.length) {
+                    typingText.textContent += text[currentCharIndex];
+                    currentCharIndex++;
+                    setTimeout(typeText, typingSpeed);
+                } else {
+                    isTyping = false;
+                    setTimeout(typeText, delayBetweenTexts);
+                }
+            } else {
+                if (currentCharIndex > 0) {
+                    typingText.textContent = text.substring(0, currentCharIndex - 1);
+                    currentCharIndex--;
+                    setTimeout(typeText, erasingSpeed);
+                } else {
+                    currentTextIndex++;
+                    
+                    if (currentTextIndex < texts.length) {
+                        isTyping = true;
+                        setTimeout(typeText, 500);
+                    } else {
+                        cursor.style.display = 'none';
+                        setTimeout(showFinalText, delayBeforeFinal);
+                    }
+                }
+            }
+        }
+
+        function showFinalText() {
+            finalText.classList.remove('hidden');
+            createPixelExplosion();
+        }
+
+        function createPixelExplosion() {
+            const finalRect = finalText.getBoundingClientRect();
+            const centerX = finalRect.left + finalRect.width / 2;
+            const centerY = finalRect.top + finalRect.height / 2;
+
+            for (let i = 0; i < 60; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'pixel-particle';
+                
+                const angle = (Math.random() * Math.PI * 2);
+                const velocity = 3 + Math.random() * 7;
+                const vx = Math.cos(angle) * velocity;
+                const vy = Math.sin(angle) * velocity;
+
+                const pixelBlock = document.createElement('div');
+                pixelBlock.className = 'pixel-block';
+                
+                particle.appendChild(pixelBlock);
+                particle.style.left = centerX + 'px';
+                particle.style.top = centerY + 'px';
+                
+                document.body.appendChild(particle);
+
+                let x = centerX;
+                let y = centerY;
+                let life = 1;
+                const gravity = 0.15;
+                let velocityY = vy;
+
+                function animate() {
+                    x += vx;
+                    y += velocityY;
+                    velocityY += gravity;
+                    life -= 0.015;
+
+                    particle.style.left = x + 'px';
+                    particle.style.top = y + 'px';
+                    particle.style.opacity = life;
+
+                    if (life > 0) {
+                        requestAnimationFrame(animate);
+                    } else {
+                        particle.remove();
+                    }
+                }
+
+                animate();
+            }
+        }
+
+        typeText();
+
+        // Terminal Interaction
+        const terminalInput = document.getElementById('terminalInput');
+        const terminalOutput = document.getElementById('terminalOutput');
+        const suggestion = document.getElementById('suggestion');
+        const tabHint = document.getElementById('tabHint');
+
+        // Display help on load
+        function displayHelp() {
+            const helpGrid = document.createElement('div');
+            helpGrid.className = 'help-grid';
+
+            Object.keys(commands).forEach(cmd => {
+                const cell = document.createElement('div');
+                cell.className = 'help-cell';
+
+                const commandEl = document.createElement('div');
+                commandEl.className = 'help-command';
+                commandEl.textContent = cmd;
+                commandEl.onclick = () => executeCommand(cmd);
+
+                const descEl = document.createElement('div');
+                descEl.className = 'help-description';
+                descEl.textContent = commands[cmd].description || ''; // Add descriptions if needed
+
+                cell.appendChild(commandEl);
+                cell.appendChild(descEl);
+                helpGrid.appendChild(cell);
+            });
+
+            terminalOutput.appendChild(helpGrid);
+        }
+
+        const commands = {
+            'avito': {
+                response: 'Открываю Авито...',
+                action: () => window.open('https://www.avito.ru', '_blank')
+            },
+            'telegram': {
+                response: 'Открываю Телеграм...',
+                action: () => window.open('https://t.me/kulek_pc', '_blank')
+            },
+            'configurator': {
+                response: 'Открываю конфигуратор ПК...',
+                action: () => openConfigurator()
+            },
+            'services': {
+                response: 'Переходу к услугам...',
+                action: () => {
+                    document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
+                }
+            },
+            'about': {
+                response: 'Переходу к информации о компании...',
+                action: () => {
+                    document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+                }
+            },
+            'contacts': {
+                response: 'Переходу к контактам...',
+                action: () => {
+                    document.getElementById('contacts').scrollIntoView({ behavior: 'smooth' });
+                }
+            },
+            'status': {
+                response: 'КУЛЁК SYSTEM STATUS:\n  CPU: 8-bit Processor @ 1.21 GHz\n  RAM: 64KB Available\n  Uptime: 9999 days\n  Status: OPERATIONAL ✓',
+                action: null
+            },
+            'clear': {
+                response: null,
+                action: () => {
+                    terminalOutput.innerHTML = '<div class="terminal-line" style="color: #00ff00;"><span class="terminal-prompt">$</span> Терминал очищен</div>';
+                    displayHelp();
+                }
+            }
+        };
+
+        displayHelp();
+
+        // Autocomplete
+        terminalInput.addEventListener('input', () => {
+            const value = terminalInput.value.trim().toLowerCase();
+            if (!value) {
+                suggestion.innerHTML = '';
+                tabHint.style.display = 'none';
+                return;
+            }
+
+            const matches = Object.keys(commands).filter(cmd => cmd.startsWith(value));
+            if (matches.length === 1) {
+                const full = matches[0];
+                const complete = full.substring(value.length);
+                suggestion.innerHTML = value + complete + '...';
+                tabHint.style.display = 'inline-block';
+                const charWidth = 8; // Approximate monospaced char width
+                tabHint.style.left = ((value + complete).length * charWidth) + 'px';
+            } else {
+                suggestion.innerHTML = '';
+                tabHint.style.display = 'none';
+            }
+        });
+
+        terminalInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab' && suggestion.innerHTML) {
+                e.preventDefault();
+                terminalInput.value = suggestion.innerHTML.replace('...', '');
+                suggestion.innerHTML = '';
+                tabHint.style.display = 'none';
+            } else if (e.key === 'Enter') {
+                const command = terminalInput.value.trim().toLowerCase();
+                if (command) {
+                    executeCommand(command);
+                }
+            }
+        });
+
+        function executeCommand(command) {
+            // Add user input to output
+            const userLine = document.createElement('div');
+            userLine.className = 'terminal-line';
+            userLine.innerHTML = `<span class="terminal-prompt">$</span> ${command}`;
+            terminalOutput.appendChild(userLine);
+
+            // Process command
+            if (commands[command]) {
+                const cmd = commands[command];
+                
+                if (cmd.response) {
+                    const responseLine = document.createElement('div');
+                    responseLine.className = 'terminal-line';
+                    responseLine.style.color = '#00ff00';
+                    responseLine.textContent = cmd.response;
+                    terminalOutput.appendChild(responseLine);
+                }
+
+                if (cmd.action) {
+                    setTimeout(cmd.action, 500);
+                }
+            } else {
+                const errorLine = document.createElement('div');
+                errorLine.className = 'terminal-line';
+                errorLine.style.color = '#ff6b6b';
+                errorLine.textContent = `Команда не найдена: ${command}. Введите help для справки.`;
+                terminalOutput.appendChild(errorLine);
+            }
+
+            // Clear input
+            terminalInput.value = '';
+            suggestion.innerHTML = '';
+            tabHint.style.display = 'none';
+            
+            // Scroll to bottom
+            terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        }
+
+        // PC Configurator Functions
+        const components = ['cpu', 'mobo', 'ram', 'gpu', 'cool', 'ssd', 'psu', 'case', 'fans']; // Added fans as per reference
+
+        function calculateTotal() {
+            let total = 0;
+            components.forEach(comp => {
+                const price = parseFloat(document.getElementById(`${comp}-price`).value) || 0;
+                const qty = parseFloat(document.getElementById(`${comp}-qty`).value) || 1;
+                total += price * qty;
+            });
+            document.getElementById('totalPrice').textContent = total.toLocaleString('ru-RU') + ' P';
+        }
+
+        components.forEach(comp => {
+            document.getElementById(`${comp}-price`).addEventListener('input', calculateTotal);
+            document.getElementById(`${comp}-qty`).addEventListener('input', calculateTotal);
+        });
+
+        function saveConfiguration() {
+            const configName = document.getElementById('configName').value || `Сборка ${new Date().toLocaleString('ru-RU')}`;
+            
+            const config = {
+                id: Date.now(),
+                name: configName,
+                timestamp: new Date().toLocaleString('ru-RU'),
+                components: {}
+            };
+
+            components.forEach(comp => {
+                config.components[comp] = {
+                    name: document.getElementById(`${comp}-name`).value,
+                    price: document.getElementById(`${comp}-price`).value,
+                    qty: document.getElementById(`${comp}-qty`).value
+                };
+            });
+
+            const total = document.getElementById('totalPrice').textContent;
+            config.total = total;
+
+            let configs = JSON.parse(localStorage.getItem('kulek_configs')) || [];
+            configs.push(config);
+            localStorage.setItem('kulek_configs', JSON.stringify(configs));
+
+            document.getElementById('configName').value = '';
+
+            displaySavedConfigs();
+
+            alert('✓ Конфигурация сохранена!\n\n' + configName + '\nСтоимость: ' + total);
+        }
+
+        function displaySavedConfigs() {
+            const configs = JSON.parse(localStorage.getItem('kulek_configs')) || [];
+            const container = document.getElementById('savedConfigsContainer');
+            const list = document.getElementById('savedConfigsList');
+
+            if (configs.length === 0) {
+                container.style.display = 'none';
+                return;
+            }
+
+            container.style.display = 'block';
+            list.innerHTML = '';
+
+            configs.forEach(config => {
+                const configHTML = `
+                    <div class="saved-config-item">
+                        <div class="saved-config-info">
+                            <div class="saved-config-name">${config.name}</div>
+                            <div class="saved-config-price">Стоимость: ${config.total}</div>
+                            <div class="saved-config-time">${config.timestamp}</div>
+                        </div>
+                        <div class="saved-config-buttons">
+                            <button class="config-btn load" onclick="loadConfiguration(${config.id})">ЗАГРУЗИТЬ</button>
+                            <button class="config-btn delete" onclick="deleteConfiguration(${config.id})">УДАЛИТЬ</button>
+                        </div>
+                    </div>
+                `;
+                list.innerHTML += configHTML;
+            });
+        }
+
+        function loadConfiguration(id) {
+            const configs = JSON.parse(localStorage.getItem('kulek_configs')) || [];
+            const config = configs.find(c => c.id === id);
+
+            if (!config) return;
+
+            components.forEach(comp => {
+                document.getElementById(`${comp}-name`).value = config.components[comp].name;
+                document.getElementById(`${comp}-price`).value = config.components[comp].price;
+                document.getElementById(`${comp}-qty`).value = config.components[comp].qty;
+            });
+
+            calculateTotal();
+            alert('✓ Конфигурация загружена: ' + config.name);
+        }
+
+        function deleteConfiguration(id) {
+            if (!confirm('Вы уверены, что хотите удалить эту конфигурацию?')) return;
+
+            let configs = JSON.parse(localStorage.getItem('kulek_configs')) || [];
+            configs = configs.filter(c => c.id !== id);
+            localStorage.setItem('kulek_configs', JSON.stringify(configs));
+
+            displaySavedConfigs();
+            alert('✓ Конфигурация удалена');
+        }
+
+        // Pixel Animation for Configurator
+   function animatePixels(inward, callback) {
+    const overlay = document.getElementById('pixelOverlay');
+    overlay.style.display = 'block';
+    overlay.innerHTML = '';
+
+    const pxSize = 40;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const numCols = Math.ceil(vw / pxSize);
+    const numRows = Math.ceil(vh / pxSize);
+    const particles = [];
+
+    for (let row = 0; row < numRows; row++) {
+        for (let col = 0; col < numCols; col++) {
+            const particle = document.createElement('div');
+            particle.className = 'pixel-square';
+            particle.style.width = pxSize + 'px';
+            particle.style.height = pxSize + 'px';
+            particle.style.left = (col * pxSize) + 'px';
+            particle.style.top = (row * pxSize) + 'px';
+            particle.style.opacity = inward ? 0 : 1;
+            overlay.appendChild(particle);
+            particles.push(particle);
+        }
+    }
+
+    const delayMax = 800;
+
+    // Фаза 1 — пикселизация (закрытие)
+    particles.forEach(p => {
+        const delay = Math.random() * delayMax;
+        setTimeout(() => {
+            p.style.transition = 'opacity 0.3s ease';
+            p.style.opacity = inward ? 1 : 0;
+        }, delay);
+    });
+
+    // через delayMax экран уже тёмный
+    setTimeout(() => {
+        if (inward) {
+            // 🔹 вызываем callback, пока экран чёрный
+            if (callback) callback();
+
+            // ждём 1000 мс тёмного экрана (переход контента)
+            setTimeout(() => {
+                // Фаза 2 — распикселизация (открытие)
+                particles.forEach(p => {
+                    const delay = Math.random() * delayMax;
+                    setTimeout(() => {
+                        p.style.transition = 'opacity 0.4s ease';
+                        p.style.opacity = 0;
+                    }, delay);
+                });
+
+                // скрываем overlay после исчезновения пикселей
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                }, delayMax);
+            }, 250);
+        } else {
+            overlay.style.display = 'none';
+        }
+    }, delayMax);
+}
+
+
+
+        function openConfigurator() {
+  animatePixels(true, () => {
+    // Эта часть выполнится, когда экран уже полностью затемнён
+    document.getElementById('mainContent').style.display = 'none';
+    const configSection = document.getElementById('configurator');
+    configSection.style.display = 'block';
+    calculateTotal();
+    displaySavedConfigs();
+    window.scrollTo(0, 0);
+  });
+}
+
+        function closeConfigurator(callback = null) {
+            animatePixels(true, () => {
+                    document.getElementById('configurator').style.display = 'none';
+                    document.getElementById('mainContent').style.display = 'block';
+                    window.scrollTo(0, 0);
+            });
+        }
+
+        function scrollToTerminal() {
+            const config = document.getElementById('configurator');
+            const headerOffset = document.querySelector('nav').offsetHeight;
+            const terminal = document.getElementById('terminal');
+            const elementPosition = terminal.getBoundingClientRect().top;
+            const offsetPosition = window.scrollY + elementPosition - headerOffset;
+
+            if (config.style.display === 'block') {
+                closeConfigurator(() => {
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                    setTimeout(() => {
+                        terminalInput.focus();
+                    }, 300);
+                });
+            } else {
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+                setTimeout(() => {
+                    terminalInput.focus();
+                }, 300);
+            }
+        }
+
+        // Floating button visibility
+        const floatingBtn = document.getElementById('floatingBackBtn');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                floatingBtn.style.display = 'block';
+            } else {
+                floatingBtn.style.display = 'none';
+            }
+        });
+
+        // Focus input on page load
+        terminalInput.focus();
+
+        // Ensure page starts at top on load
+        window.addEventListener('load', () => {
+            window.scrollTo(0, 0);
+        });
+    </script>
+</body>
+</html>
